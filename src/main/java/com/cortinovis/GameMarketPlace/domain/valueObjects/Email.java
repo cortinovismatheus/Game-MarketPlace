@@ -1,5 +1,10 @@
 package com.cortinovis.GameMarketPlace.domain.valueObjects;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Email {
   private final String value;
 
@@ -45,7 +50,16 @@ public class Email {
     }
   }
 
-  public String getValue(){
-    return value;
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    if (!(obj instanceof Email other)) {
+      return false;
+    }
+
+    return value.equals(other.getValue());
   }
 }

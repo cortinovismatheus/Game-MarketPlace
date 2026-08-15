@@ -1,5 +1,10 @@
 package com.cortinovis.GameMarketPlace.domain.valueObjects;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CPF {
 
   private final String value;
@@ -32,6 +37,7 @@ public class CPF {
     }
   }
 
+
   private boolean isValidCPF(String cpf) {
 
     int firstDigit = calculateDigit(cpf, 9);
@@ -40,6 +46,7 @@ public class CPF {
     return firstDigit == Character.getNumericValue(cpf.charAt(9))
             && secondDigit == Character.getNumericValue(cpf.charAt(10));
   }
+
 
   private int calculateDigit(String cpf, int position) {
 
@@ -56,7 +63,23 @@ public class CPF {
     return remainder < 2 ? 0 : 11 - remainder;
   }
 
-  public String getValue() {
-    return value;
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+
+    if (!(obj instanceof CPF other)) {
+      return false;
+    }
+
+    return value.equals(other.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return value.hashCode();
   }
 }
+
+

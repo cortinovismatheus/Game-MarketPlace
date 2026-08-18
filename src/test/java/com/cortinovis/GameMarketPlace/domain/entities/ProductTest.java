@@ -1,4 +1,4 @@
 package com.cortinovis.GameMarketPlace.domain.entities;
 
-public class User {
+public class ProductTest {
 }

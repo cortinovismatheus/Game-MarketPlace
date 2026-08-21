@@ -2,59 +2,56 @@ package com.cortinovis.GameMarketPlace.domain.entities;
 
 import com.cortinovis.GameMarketPlace.domain.valueObjects.CPF;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Email;
+import com.cortinovis.GameMarketPlace.domain.valueObjects.Password;
+import com.cortinovis.GameMarketPlace.domain.valueObjects.UserName;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.Contract;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
+import java.util.Date;
 
 @Getter
 public class User {
-  private static int nextId = 1;
-
-  int id;
-  String name;
+  Integer id;
+  @Setter
+  UserName name;
+  @Setter
   CPF cpf;
+  @Setter
   Email email;
-  String password;
+  @Setter
+  Password password;
+  @Setter
   boolean isActive;
+  @Setter
+  Date created_at;
+  @Setter
+  Date updated_at;
 
-  public User(String name, CPF cpf, Email email, String password){
-    if(name == null){
-      throw new IllegalArgumentException("Name canot be empty");
-    }
-
-    if(password == null){
-      throw new IllegalArgumentException("Password canot be empty");
-    }
-
-    this.id = nextId++;
+  public User(Integer id,UserName name, CPF cpf, Email email, Password password, boolean isActive, Date created_at, Date updated_at){
+    this.id = id;
     this.name = name;
     this.cpf = cpf;
     this.email = email;
     this.password = password;
-    this.isActive = true;
+    this.isActive = isActive;
+    this.created_at = created_at;
+    this.updated_at = updated_at;
   }
 
-  public void setName(String name){
-    if(name == null || name.isBlank()){
-      throw new IllegalArgumentException("Name cannot be null");
-    }
-    this.name = name;
+  @Contract(value = "_, _, _, _, _ -> new", pure = true)
+  public static @NonNull User create(UserName userName, CPF cpf, Email email, Password password, boolean isActive){
+    return new User(null,userName, cpf, email, password, isActive, null, null);
   }
 
-  public void setCpf(String cpf){
-    if(cpf == null || cpf.isBlank()){
-      throw new IllegalArgumentException("CPF cannot be null");
-    }
+  @Contract(value = "_, _, _, _, _, _, _, _ -> new", pure = true)
+  public static @NonNull User restore(int id, UserName userName, CPF cpf, Email email, Password password, boolean isActive, Date created_at, Date updated_at){
+    return new User(id, userName, cpf, email, password, isActive, created_at, updated_at);
   }
 
-  public void setEmail(String email){
-    if(email == null || email.isBlank()){
-      throw new IllegalArgumentException("Email cannot be null");
-    }
-  }
-
-  public void setPassword(String password){
-    if(password == null || password.isBlank()){
-      throw new IllegalArgumentException("Password cannot be null");
-    }
+  public @Nullable Object getIsActive() {
+    return isActive;
   }
 }

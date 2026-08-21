@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OwnerId {
-  private final int value;
+  private int value;
 
   public OwnerId(int value) {
     validate(value);

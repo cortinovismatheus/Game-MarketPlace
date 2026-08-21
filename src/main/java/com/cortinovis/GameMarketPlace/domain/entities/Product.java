@@ -1,6 +1,5 @@
   package com.cortinovis.GameMarketPlace.domain.entities;
 
-  import com.cortinovis.GameMarketPlace.domain.valueObjects.OwnerId;
   import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
   import com.cortinovis.GameMarketPlace.domain.valueObjects.ProductDescription;
   import com.cortinovis.GameMarketPlace.domain.valueObjects.ProductName;
@@ -13,24 +12,18 @@
   import java.util.Date;
 
   @Getter
+  @Setter
   public class Product {
     Integer id;
-    @Setter
-    OwnerId ownerId;
-    @Setter
+    Integer ownerId;
     ProductName name;
-    @Setter
     ProductDescription description;
-    @Setter
     Price price;
-    @Setter
     boolean isEnable;
-    @Setter
     Date created_at;
-    @Setter
     Date updated_at;
 
-    public Product(Integer id, OwnerId ownerId, ProductName name, ProductDescription description, Price price, boolean isEnable, Date created_at, Date updated_at){
+    public Product(Integer id, Integer ownerId, ProductName name, ProductDescription description, Price price, boolean isEnable, Date created_at, Date updated_at){
       this.id = id;
       this.ownerId = ownerId;
       this.name = name;
@@ -42,12 +35,12 @@
     }
 
     @Contract(value = "_, _, _, _, _ -> new", pure = true)
-    public static @NonNull Product create(OwnerId ownerId, ProductName name, ProductDescription description, Price price, boolean isEnable){
+    public static @NonNull Product create(Integer ownerId, ProductName name, ProductDescription description, Price price, boolean isEnable){
       return new Product(null, ownerId, name, description, price, isEnable, null, null);
     }
 
     @Contract(value = "_, _, _, _, _, _, _, _ -> new", pure = true)
-    public static @NonNull Product restore(Integer id, OwnerId ownerId, ProductName name, ProductDescription description, Price price, boolean isEnable, Date created_at, Date updated_at){
+    public static @NonNull Product restore(Integer id, Integer ownerId, ProductName name, ProductDescription description, Price price, boolean isEnable, Date created_at, Date updated_at){
       return new Product(id, ownerId, name, description, price, isEnable, created_at, updated_at);
     }
 

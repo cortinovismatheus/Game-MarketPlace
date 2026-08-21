@@ -1,7 +1,7 @@
 package com.cortinovis.GameMarketPlace.domain.entities;
 
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.ProductItem;
 import com.cortinovis.GameMarketPlace.domain.enums.OrderStatus;
-import com.cortinovis.GameMarketPlace.domain.valueObjects.OrderItem;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +11,12 @@ import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 public class Order {
   Integer id;
+  Integer sellerId;
   Integer buyerId;
   List<OrderItem> items;
   Price totalPrice;
@@ -24,8 +26,9 @@ public class Order {
   @Setter
   Date updated_at;
 
-  public Order(Integer id, Integer buyerId, List<OrderItem> items, Price totalPrice, OrderStatus status,Date created_at, Date updated_at){
+  public Order(Integer id, Integer sellerId,Integer buyerId, List<OrderItem> items, Price totalPrice, OrderStatus status,Date created_at, Date updated_at){
     this.id = id;
+    this.sellerId = sellerId;
     this.buyerId = buyerId;
     this.items = items;
     this.totalPrice = totalPrice;
@@ -34,11 +37,12 @@ public class Order {
     this.updated_at = updated_at;
   }
 
-  @Contract(value = "_ -> new", pure = true)
-  public static @NonNull Order create(List<OrderItem> items) {
+  @Contract(value = "_, _, _ -> new", pure = true)
+  public static @NonNull Order create(Integer sellerId,Integer buyerId, List<OrderItem> items) {
     Order order = new Order(
             null,
-            null,
+            sellerId,
+            buyerId,
             new ArrayList<>(items),
             null,
             OrderStatus.PENDING,
@@ -51,9 +55,9 @@ public class Order {
     return order;
   }
 
-  @Contract(value = "_, _, _, _, _, _, _ -> new", pure = true)
-  public static @NonNull Order restore(Integer id , Integer buyerId, List<OrderItem> items, Price totalPrice, OrderStatus status, Date created_at, Date updated_at){
-    return new Order(id, buyerId, new ArrayList<>(items), totalPrice, status,created_at, updated_at);
+  @Contract(value = "_, _, _, _, _, _, _, _ -> new", pure = true)
+  public static @NonNull Order restore(Integer id , Integer sellerId,Integer buyerId, List<OrderItem> items, Price totalPrice, OrderStatus status, Date created_at, Date updated_at){
+    return new Order(id, sellerId,buyerId, new ArrayList<>(items), totalPrice, status,created_at, updated_at);
   }
 
   public void confirm() {
@@ -80,12 +84,13 @@ public class Order {
     status = OrderStatus.CANCELLED;
   }
 
-  @Contract(" -> new")
-  private @NonNull Price calculateTotalPrice(){
+  private @NonNull Price calculateTotalPrice() {
     int total = 0;
-    for(OrderItem item : items){
-      total += item.getQuantityProduct().getValue() * item.getUnitPrice().getValue();
+
+    for (OrderItem item : items) {
+      total += item.calculateTotalPrice().getValue();
     }
+
     return new Price(total);
   }
 
@@ -100,12 +105,10 @@ public class Order {
   }
 
   public void removeItem(Integer productId) {
-    if (status != OrderStatus.PENDING) {
-      throw new IllegalStateException(
-              "Items can only be removed from pending orders"
-      );
-    }
-    items.removeIf(item -> item.getProductId().equals(productId));
+    items.removeIf(item ->
+            Objects.equals(item.getProductId(), productId)
+    );
+
     totalPrice = calculateTotalPrice();
   }
 }

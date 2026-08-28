@@ -10,7 +10,7 @@ class OrderItemTest {
 
   private @NonNull Product createValidProduct() {
     return Product.create(
-            new OwnerId(1),
+             1,
             new ProductName("Minecraft"),
             new ProductDescription("Conta de Minecraft"),
             new Price(100),

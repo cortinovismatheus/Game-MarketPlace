@@ -105,9 +105,27 @@ public class Order {
   }
 
   public void removeItem(Integer productId) {
-    items.removeIf(item ->
+    if (status != OrderStatus.PENDING) {
+      throw new IllegalStateException(
+              "Items can only be removed from pending orders"
+      );
+    }
+
+    if (items.size() == 1) {
+      throw new IllegalStateException(
+              "Order must contain at least one item"
+      );
+    }
+
+    boolean removed = items.removeIf(item ->
             Objects.equals(item.getProductId(), productId)
     );
+
+    if (!removed) {
+      throw new IllegalArgumentException(
+              "Product not found in order"
+      );
+    }
 
     totalPrice = calculateTotalPrice();
   }

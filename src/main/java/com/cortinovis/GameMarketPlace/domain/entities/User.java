@@ -47,7 +47,7 @@ public class User {
   }
 
   @Contract(value = "_, _, _, _, _, _, _, _ -> new", pure = true)
-  public static @NonNull User restore(int id, UserName userName, CPF cpf, Email email, Password password, boolean isActive, Date created_at, Date updated_at){
+  public static @NonNull User restore(Integer id, UserName userName, CPF cpf, Email email, Password password, boolean isActive, Date created_at, Date updated_at){
     return new User(id, userName, cpf, email, password, isActive, created_at, updated_at);
   }
 

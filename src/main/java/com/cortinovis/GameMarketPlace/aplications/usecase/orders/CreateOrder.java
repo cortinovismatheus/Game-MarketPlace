@@ -21,11 +21,7 @@ public class CreateOrder {
   private final IProductRepository productRepo;
   private final IOrderRepository orderRepo;
 
-  public CreateOrder(
-          IUserRepository userRepo,
-          IProductRepository productRepo,
-          IOrderRepository orderRepo
-  ) {
+  public CreateOrder(IUserRepository userRepo, IProductRepository productRepo, IOrderRepository orderRepo) {
     this.userRepo = userRepo;
     this.productRepo = productRepo;
     this.orderRepo = orderRepo;
@@ -72,6 +68,6 @@ public class CreateOrder {
 
     Integer orderId = orderRepo.save(order);
 
-    return new CreateOrderOutput(ownerId);
+    return new CreateOrderOutput(orderId);
   }
 }

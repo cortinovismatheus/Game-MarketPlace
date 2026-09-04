@@ -6,6 +6,7 @@ import com.cortinovis.GameMarketPlace.domain.valueObjects.QuantifyProduct;
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @Getter
 public class OrderItem {
@@ -47,4 +48,5 @@ public class OrderItem {
 
     return new Price(total);
   }
+
 }

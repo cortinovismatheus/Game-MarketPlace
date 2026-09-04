@@ -6,6 +6,4 @@ import java.util.Optional;
 
 public interface IProductRepository {
   public Optional<Product> getById(Integer id);
-
-
 }

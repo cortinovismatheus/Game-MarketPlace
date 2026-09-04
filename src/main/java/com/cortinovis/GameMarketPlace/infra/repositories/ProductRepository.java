@@ -9,10 +9,11 @@ import com.cortinovis.GameMarketPlace.domain.valueObjects.ProductName;
 import java.util.Date;
 import java.util.Optional;
 
-public class ProducRepository implements IProductRepository {
+public class ProductRepository implements IProductRepository {
   @Override
   public Optional<Product> getById(Integer id) {
-    Product productTest = new Product(1,
+
+    Product productTest = new Product(2,
             1,
             new ProductName("produto"),
             new ProductDescription("desc"),

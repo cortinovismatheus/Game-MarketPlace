@@ -2,7 +2,11 @@ package com.cortinovis.GameMarketPlace;
 
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder;
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrderInput;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrderOutput;
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.ProductItem;
+import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
+import com.cortinovis.GameMarketPlace.domain.ports.IProductRepository;
+import com.cortinovis.GameMarketPlace.domain.ports.IUserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,7 +23,20 @@ public class GameMarketPlaceApplication {
 						args
 		);
 
-		CreateOrder createOrder = context.getBean(CreateOrder.class);
+		IUserRepository userRepo =
+						context.getBean(IUserRepository.class);
+
+		IProductRepository productRepo =
+						context.getBean(IProductRepository.class);
+
+		IOrderRepository orderRepo =
+						context.getBean(IOrderRepository.class);
+
+		CreateOrder createOrder = new CreateOrder(
+						userRepo,
+						productRepo,
+						orderRepo
+		);
 
 		ProductItem product = new ProductItem(2, 2);
 
@@ -30,6 +47,8 @@ public class GameMarketPlaceApplication {
 						productItems
 		);
 
-		createOrder.run(input);
+		CreateOrderOutput output = createOrder.run(input);
+
+		System.out.println("Order criada com ID: " + output);
 	}
 }

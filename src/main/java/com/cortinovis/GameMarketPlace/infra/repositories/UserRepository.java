@@ -6,10 +6,12 @@ import com.cortinovis.GameMarketPlace.domain.valueObjects.CPF;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Email;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Password;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.UserName;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.Optional;
 
+@Repository
 public class UserRepository implements IUserRepository {
   @Override
   public Optional<User> getById(Integer id) {

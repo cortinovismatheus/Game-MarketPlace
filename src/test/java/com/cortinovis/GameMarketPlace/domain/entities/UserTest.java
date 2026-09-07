@@ -19,7 +19,7 @@ public class UserTest {
     assertNotNull(user.getCpf());
     assertNotNull(user.getEmail());
     assertNotNull(user.getPassword());
-    assertNotNull(user.getIsActive());
+    assertNotNull(user.isActive());
     assertNull(user.getCreated_at());
     assertNull(user.getUpdated_at());
   }
@@ -32,7 +32,7 @@ public class UserTest {
     assertNotNull(user.getCpf());
     assertNotNull(user.getEmail());
     assertNotNull(user.getPassword());
-    assertNotNull(user.getIsActive());
+    assertNotNull(user.isActive());
     assertNotNull(user.getCreated_at());
     assertNotNull(user.getUpdated_at());
   }

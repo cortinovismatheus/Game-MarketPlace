@@ -24,7 +24,7 @@ public class User {
   @Setter
   Password password;
   @Setter
-  boolean isActive;
+  public boolean isActive;
   @Setter
   Date created_at;
   @Setter
@@ -51,7 +51,7 @@ public class User {
     return new User(id, userName, cpf, email, password, isActive, created_at, updated_at);
   }
 
-  public @Nullable Object getIsActive() {
+  public @Nullable Object isActive() {
     return isActive;
   }
 }

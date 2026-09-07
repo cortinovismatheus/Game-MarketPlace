@@ -18,34 +18,21 @@ public class GameMarketPlaceApplication {
 
 	public static void main(String[] args) throws AccountNotFoundException {
 
-		var context = SpringApplication.run(
-						GameMarketPlaceApplication.class,
-						args
-		);
+		var context = SpringApplication.run(GameMarketPlaceApplication.class, args);
 
-		IUserRepository userRepo =
-						context.getBean(IUserRepository.class);
+		IUserRepository userRepo = context.getBean(IUserRepository.class);
 
-		IProductRepository productRepo =
-						context.getBean(IProductRepository.class);
+		IProductRepository productRepo = context.getBean(IProductRepository.class);
 
-		IOrderRepository orderRepo =
-						context.getBean(IOrderRepository.class);
+		IOrderRepository orderRepo = context.getBean(IOrderRepository.class);
 
-		CreateOrder createOrder = new CreateOrder(
-						userRepo,
-						productRepo,
-						orderRepo
-		);
+		CreateOrder createOrder = new CreateOrder(userRepo, productRepo, orderRepo);
 
 		ProductItem product = new ProductItem(2, 2);
 
 		List<ProductItem> productItems = List.of(product);
 
-		CreateOrderInput input = new CreateOrderInput(
-						1,
-						productItems
-		);
+		CreateOrderInput input = new CreateOrderInput(1, productItems);
 
 		CreateOrderOutput output = createOrder.run(input);
 

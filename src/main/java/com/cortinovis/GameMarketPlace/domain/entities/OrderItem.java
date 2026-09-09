@@ -3,25 +3,10 @@ package com.cortinovis.GameMarketPlace.domain.entities;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.ProductName;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.QuantifyProduct;
-import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 
-@Getter
-public class OrderItem {
-
-  private final Integer productId;
-  private final ProductName productName;
-  private final QuantifyProduct quantityProduct;
-  private final Price unitPrice;
-
-  public OrderItem(Integer productId, ProductName productName, QuantifyProduct quantityProduct, Price unitPrice) {
-    this.productId = productId;
-    this.productName = productName;
-    this.quantityProduct = quantityProduct;
-    this.unitPrice = unitPrice;
-  }
+public record OrderItem(Integer productId, ProductName productName, QuantifyProduct quantityProduct, Price unitPrice) {
 
   @Contract("_, _ -> new")
   public static @NonNull OrderItem create(@NonNull Product product, QuantifyProduct quantityProduct) {

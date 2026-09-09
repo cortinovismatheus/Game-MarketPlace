@@ -25,10 +25,10 @@ class OrderItemTest {
 
     OrderItem orderItem = OrderItem.create(product, quantity);
 
-    assertEquals(product.getId(), orderItem.getProductId());
-    assertEquals(product.getName(), orderItem.getProductName());
-    assertEquals(quantity, orderItem.getQuantityProduct());
-    assertEquals(product.getPrice(), orderItem.getUnitPrice());
+    assertEquals(product.getId(), orderItem.productId());
+    assertEquals(product.getName(), orderItem.productName());
+    assertEquals(quantity, orderItem.quantityProduct());
+    assertEquals(product.getPrice(), orderItem.unitPrice());
   }
 
   @Test
@@ -56,9 +56,9 @@ class OrderItemTest {
             unitPrice
     );
 
-    assertEquals(10, orderItem.getProductId());
-    assertEquals(productName, orderItem.getProductName());
-    assertEquals(quantity, orderItem.getQuantityProduct());
-    assertEquals(unitPrice, orderItem.getUnitPrice());
+    assertEquals(10, orderItem.productId());
+    assertEquals(productName, orderItem.productName());
+    assertEquals(quantity, orderItem.quantityProduct());
+    assertEquals(unitPrice, orderItem.unitPrice());
   }
 }

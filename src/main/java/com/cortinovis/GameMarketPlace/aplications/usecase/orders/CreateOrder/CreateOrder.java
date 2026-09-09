@@ -1,5 +1,6 @@
-package com.cortinovis.GameMarketPlace.aplications.usecase.orders;
+package com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder;
 
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.ProductItem;
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import com.cortinovis.GameMarketPlace.domain.entities.OrderItem;
 import com.cortinovis.GameMarketPlace.domain.entities.Product;
@@ -9,12 +10,14 @@ import com.cortinovis.GameMarketPlace.domain.ports.IProductRepository;
 import com.cortinovis.GameMarketPlace.domain.ports.IUserRepository;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.QuantifyProduct;
 import org.jspecify.annotations.NonNull;
+import org.springframework.stereotype.Component;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class CreateOrder {
 
   private final IUserRepository userRepo;

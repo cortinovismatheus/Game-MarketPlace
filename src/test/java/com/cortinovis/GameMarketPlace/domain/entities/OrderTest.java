@@ -265,7 +265,7 @@ class OrderTest {
 
     assertEquals(50, order.getTotalPrice().getValue());
 
-    assertEquals(2, order.getItems().getFirst().getProductId());
+    assertEquals(2, order.getItems().getFirst().productId());
   }
 
   @Test

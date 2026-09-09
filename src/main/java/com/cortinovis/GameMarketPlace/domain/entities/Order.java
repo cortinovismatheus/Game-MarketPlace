@@ -1,6 +1,5 @@
 package com.cortinovis.GameMarketPlace.domain.entities;
 
-import com.cortinovis.GameMarketPlace.aplications.usecase.orders.ProductItem;
 import com.cortinovis.GameMarketPlace.domain.enums.OrderStatus;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
 import lombok.Getter;
@@ -118,7 +117,7 @@ public class Order {
     }
 
     boolean removed = items.removeIf(item ->
-            Objects.equals(item.getProductId(), productId)
+            Objects.equals(item.productId(), productId)
     );
 
     if (!removed) {

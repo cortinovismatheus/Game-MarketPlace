@@ -2,7 +2,11 @@ package com.cortinovis.GameMarketPlace.infra.repositories;
 
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import com.cortinovis.GameMarketPlace.domain.entities.OrderItem;
+import com.cortinovis.GameMarketPlace.domain.enums.OrderStatus;
 import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
+import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
+import com.cortinovis.GameMarketPlace.domain.valueObjects.ProductName;
+import com.cortinovis.GameMarketPlace.domain.valueObjects.QuantifyProduct;
 import org.jspecify.annotations.NonNull;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public class OrderRepository implements IOrderRepository {
@@ -53,6 +58,12 @@ public class OrderRepository implements IOrderRepository {
     return generatedOrderId;
   }
 
+  @Override
+  public List<Order> get() {
+    return List.of();
+  }
+
+
   private void saveItems(Integer orderId, @NonNull Order order) {
     String itemSql = "INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)";
 
@@ -60,10 +71,12 @@ public class OrderRepository implements IOrderRepository {
       jdbcTemplate.update(
               itemSql,
               orderId,
-              item.getProductId(),
-              item.getQuantityProduct().getValue(),
-              item.getUnitPrice().getValue()
+              item.productId(),
+              item.quantityProduct().getValue(),
+              item.unitPrice().getValue()
       );
     }
   }
+
+
 }

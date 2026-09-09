@@ -1,6 +1,6 @@
-package com.cortinovis.GameMarketPlace.aplications.usecase.orders;
+package com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder;
 
-import com.cortinovis.GameMarketPlace.domain.entities.Product;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.ProductItem;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

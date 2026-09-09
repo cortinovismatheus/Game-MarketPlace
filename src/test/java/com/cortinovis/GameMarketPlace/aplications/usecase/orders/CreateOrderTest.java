@@ -1,5 +1,8 @@
 package com.cortinovis.GameMarketPlace.aplications.usecase.orders;
 
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder.CreateOrder;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder.CreateOrderInput;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder.CreateOrderOutput;
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import com.cortinovis.GameMarketPlace.domain.entities.Product;
 import com.cortinovis.GameMarketPlace.domain.entities.User;
@@ -10,7 +13,6 @@ import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

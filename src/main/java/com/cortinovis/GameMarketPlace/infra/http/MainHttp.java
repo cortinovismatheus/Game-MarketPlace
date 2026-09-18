@@ -1,7 +1,7 @@
 package com.cortinovis.GameMarketPlace.infra.http;
 
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder.CreateOrder;
-import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder.GetOrder;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder.GetOrderById;
 import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
 import com.cortinovis.GameMarketPlace.domain.ports.IProductRepository;
 import com.cortinovis.GameMarketPlace.domain.ports.IUserRepository;
@@ -21,9 +21,9 @@ public class MainHttp {
     IOrderRepository orderRepository = new OrderRepository(jdbcTemplate);
 
     CreateOrder createOrder = new CreateOrder(userRepository, productRepository, orderRepository);
-    GetOrder getOrder = new GetOrder(orderRepository);
+    GetOrderById getOrderById = new GetOrderById(orderRepository);
 
     new CreateOrderRoute(createOrder);
-    new GetOrderRoute(getOrder);
+    new GetOrderByIdRoute(getOrderById);
   }
 }

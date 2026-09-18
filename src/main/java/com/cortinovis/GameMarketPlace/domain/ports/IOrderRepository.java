@@ -2,9 +2,9 @@ package com.cortinovis.GameMarketPlace.domain.ports;
 
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface IOrderRepository {
   public Integer save(Order order);
-  public List<Order> get();
+  public Optional<Order> getById(Integer id);
 }

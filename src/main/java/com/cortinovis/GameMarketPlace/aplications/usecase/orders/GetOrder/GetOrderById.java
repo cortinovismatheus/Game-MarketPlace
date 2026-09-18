@@ -4,19 +4,20 @@ import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Optional;
 
 @Component
-public class GetOrder {
+public class GetOrderById {
 
   private final IOrderRepository orderRepo;
 
-  public GetOrder(IOrderRepository orderRepo) {
+  public GetOrderById(IOrderRepository orderRepo) {
     this.orderRepo = orderRepo;
   }
 
-  public GetOrderOutput run() {
-    List<Order> orders = orderRepo.get();
-    return new GetOrderOutput(orders);
+  public GetOrderOutput run(Integer id) {
+    Optional<Order> order = orderRepo.getById(id);
+
+    return new GetOrderOutput(order);
   }
 }

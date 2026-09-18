@@ -1,13 +1,17 @@
 package com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder;
 
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Optional;
 
+@Getter
+@NoArgsConstructor
 public class GetOrderOutput {
-  List<Order> orderList;
+  Optional<Order> order;
 
-  public GetOrderOutput(List<Order> orders) {
-    this.orderList = orders;
+  public GetOrderOutput(Optional<Order> order) {
+    this.order = order;
   }
 }

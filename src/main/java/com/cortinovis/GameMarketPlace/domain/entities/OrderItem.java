@@ -18,11 +18,11 @@ public record OrderItem(Integer productId, ProductName productName, QuantifyProd
     );
   }
 
-  @Contract("_, _, _, _ -> new")
-  public static @NonNull OrderItem restore(Integer productId, ProductName productName, QuantifyProduct quantityProduct, Price unitPrice) {
+  @Contract("_, _, _ -> new")
+  public static @NonNull OrderItem restore(Integer productId, QuantifyProduct quantityProduct, Price unitPrice) {
     return new OrderItem(
             productId,
-            productName,
+            null,
             quantityProduct,
             unitPrice
     );

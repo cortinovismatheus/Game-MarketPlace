@@ -45,19 +45,16 @@ class OrderItemTest {
 
   @Test
   void shouldRestoreOrderItem() {
-    ProductName productName = new ProductName("Minecraft");
     QuantifyProduct quantity = new QuantifyProduct(2);
     Price unitPrice = new Price(100);
 
     OrderItem orderItem = OrderItem.restore(
             10,
-            productName,
             quantity,
             unitPrice
     );
 
     assertEquals(10, orderItem.productId());
-    assertEquals(productName, orderItem.productName());
     assertEquals(quantity, orderItem.quantityProduct());
     assertEquals(unitPrice, orderItem.unitPrice());
   }

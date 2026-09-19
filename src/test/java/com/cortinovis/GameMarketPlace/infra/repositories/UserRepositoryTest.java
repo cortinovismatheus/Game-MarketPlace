@@ -20,7 +20,6 @@ class UserRepositoryTest {
 
     // Arrange
     JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
-
     UserRepository repository = new UserRepository(jdbcTemplate);
 
     Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -42,7 +41,7 @@ class UserRepositoryTest {
       when(resultSet.getString("cpf")).thenReturn("141.050.179-50");
       when(resultSet.getString("email")).thenReturn("matheus@gmail.com");
       when(resultSet.getString("password")).thenReturn("Senha123");
-      when(resultSet.getBoolean("active")).thenReturn(true);
+      when(resultSet.getBoolean("is_active")).thenReturn(true);
       when(resultSet.getTimestamp("created_at")).thenReturn(now);
       when(resultSet.getTimestamp("updated_at")).thenReturn(now);
 
@@ -62,11 +61,71 @@ class UserRepositoryTest {
     assertEquals("matheus@gmail.com", user.getEmail().getValue());
     assertTrue((Boolean) user.isActive());
 
-    // Verifica se o JdbcTemplate foi chamado
     verify(jdbcTemplate, times(1)).query(
             anyString(),
             any(ResultSetExtractor.class),
             eq(1)
+    );
+  }
+
+
+  @Test
+  void shouldReturnEmptyWhenUserDoesNotExist() {
+
+    // Arrange
+    JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+    UserRepository repository = new UserRepository(jdbcTemplate);
+
+    when(jdbcTemplate.query(
+            anyString(),
+            any(ResultSetExtractor.class),
+            eq(999)
+    )).thenAnswer(invocation -> {
+
+      ResultSetExtractor<?> extractor = invocation.getArgument(1);
+
+      ResultSet resultSet = mock(ResultSet.class);
+
+      when(resultSet.next()).thenReturn(false);
+
+      return extractor.extractData(resultSet);
+    });
+
+    // Act
+    Optional<User> result = repository.getById(999);
+
+    // Assert
+    assertTrue(result.isEmpty());
+
+    verify(jdbcTemplate, times(1)).query(
+            anyString(),
+            any(ResultSetExtractor.class),
+            eq(999)
+    );
+  }
+
+
+  @Test
+  void shouldSearchUsingCorrectId() {
+
+    // Arrange
+    JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+    UserRepository repository = new UserRepository(jdbcTemplate);
+
+    when(jdbcTemplate.query(
+            anyString(),
+            any(ResultSetExtractor.class),
+            eq(15)
+    )).thenReturn(Optional.empty());
+
+    // Act
+    repository.getById(15);
+
+    // Assert
+    verify(jdbcTemplate, times(1)).query(
+            anyString(),
+            any(ResultSetExtractor.class),
+            eq(15)
     );
   }
 }

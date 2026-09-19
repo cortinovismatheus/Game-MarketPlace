@@ -77,17 +77,8 @@ public class OrderRepository implements IOrderRepository {
             rs -> {
 
               if (!rs.next()) {
-                System.out.println("NÃO ENCONTROU ORDER");
                 return null;
               }
-
-              System.out.println("ENCONTROU ORDER ID: " + rs.getInt("id"));
-              System.out.println("SELLER: " + rs.getInt("seller_id"));
-              System.out.println("BUYER: " + rs.getInt("buyer_id"));
-              System.out.println("TOTAL: " + rs.getInt("total_price"));
-              System.out.println("STATUS" + rs.getString("status"));
-              System.out.println("CREATED" + rs.getTimestamp("created_at"));
-              System.out.println("UPDATED" + rs.getTimestamp("updated_at"));
 
               return Order.restore(
                       rs.getInt("id"),
@@ -102,39 +93,7 @@ public class OrderRepository implements IOrderRepository {
             },
             id
     );
-    return Optional.of(result);
-  }
-
-  private @NonNull List<OrderItem> getOrderItems(Integer orderId) {
-
-    String sql = """
-        SELECT
-            order_id,
-            product_id,
-            quantity,
-            unit_price
-        FROM order_items
-        WHERE order_id = ?
-        """;
-
-    return jdbcTemplate.query(
-            sql,
-            (rs, rowNum) -> {
-
-              Integer productId = rs.getInt("product_id");
-              Integer quantity = rs.getInt("quantity");
-              Price unitPrice = new Price(
-                      rs.getInt("unit_price")
-              );
-
-              return OrderItem.restore(
-                      productId,
-                      new QuantifyProduct(quantity),
-                      unitPrice
-              );
-            },
-            orderId
-    );
+    return Optional.ofNullable(result);
   }
 
   private void saveItems(Integer orderId, @NonNull Order order) {

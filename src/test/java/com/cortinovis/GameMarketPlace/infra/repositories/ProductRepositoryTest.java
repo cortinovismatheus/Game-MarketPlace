@@ -3,7 +3,10 @@ package com.cortinovis.GameMarketPlace.infra.repositories;
 import com.cortinovis.GameMarketPlace.domain.entities.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 
+import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,16 +24,13 @@ class ProductRepositoryTest {
 
     when(jdbcTemplate.query(
             anyString(),
-            any(org.springframework.jdbc.core.ResultSetExtractor.class),
+            any(ResultSetExtractor.class),
             eq(2)
     )).thenAnswer(invocation -> {
 
-      var extractor = invocation.getArgument(
-              1,
-              org.springframework.jdbc.core.ResultSetExtractor.class
-      );
+      ResultSetExtractor<?> extractor = invocation.getArgument(1);
 
-      var resultSet = mock(java.sql.ResultSet.class);
+      ResultSet resultSet = mock(ResultSet.class);
 
       when(resultSet.next()).thenReturn(true);
 
@@ -41,7 +41,7 @@ class ProductRepositoryTest {
       when(resultSet.getInt("price")).thenReturn(1000);
       when(resultSet.getBoolean("is_enable")).thenReturn(true);
 
-      var now = new java.sql.Timestamp(System.currentTimeMillis());
+      Timestamp now = new Timestamp(System.currentTimeMillis());
 
       when(resultSet.getTimestamp("created_at")).thenReturn(now);
       when(resultSet.getTimestamp("updated_at")).thenReturn(now);
@@ -60,8 +60,41 @@ class ProductRepositoryTest {
 
     verify(jdbcTemplate).query(
             anyString(),
-            any(org.springframework.jdbc.core.ResultSetExtractor.class),
+            any(ResultSetExtractor.class),
             eq(2)
+    );
+  }
+
+  @Test
+  void shouldReturnEmptyWhenProductDoesNotExist() {
+
+    JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+
+    ProductRepository repository = new ProductRepository(jdbcTemplate);
+
+    when(jdbcTemplate.query(
+            anyString(),
+            any(ResultSetExtractor.class),
+            eq(999)
+    )).thenAnswer(invocation -> {
+
+      ResultSetExtractor<?> extractor = invocation.getArgument(1);
+
+      ResultSet resultSet = mock(ResultSet.class);
+
+      when(resultSet.next()).thenReturn(false);
+
+      return extractor.extractData(resultSet);
+    });
+
+    Optional<Product> result = repository.getById(999);
+
+    assertTrue(result.isEmpty());
+
+    verify(jdbcTemplate).query(
+            anyString(),
+            any(ResultSetExtractor.class),
+            eq(999)
     );
   }
 }

@@ -1,7 +1,7 @@
 package com.cortinovis.GameMarketPlace.aplications.usecase.orders;
 
-import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder.GetOrderById;
-import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder.GetOrderOutput;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrderById.GetOrderById;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrderById.GetOrderOutput;
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
 import org.junit.jupiter.api.Test;

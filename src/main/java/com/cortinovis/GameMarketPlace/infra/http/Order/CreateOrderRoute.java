@@ -1,4 +1,4 @@
-package com.cortinovis.GameMarketPlace.infra.http;
+package com.cortinovis.GameMarketPlace.infra.http.Order;
 
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder.CreateOrder;
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder.CreateOrderInput;

@@ -5,7 +5,6 @@ import com.cortinovis.GameMarketPlace.domain.entities.OrderItem;
 import com.cortinovis.GameMarketPlace.domain.enums.OrderStatus;
 import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
-import com.cortinovis.GameMarketPlace.domain.valueObjects.QuantifyProduct;
 import org.jspecify.annotations.NonNull;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -109,6 +108,4 @@ public class OrderRepository implements IOrderRepository {
       );
     }
   }
-
-
 }

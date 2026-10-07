@@ -1,7 +1,7 @@
-package com.cortinovis.GameMarketPlace.infra.http;
+package com.cortinovis.GameMarketPlace.infra.http.Order;
 
-import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder.GetOrderById;
-import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder.GetOrderOutput;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrderById.GetOrderById;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrderById.GetOrderOutput;
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +24,6 @@ public class GetOrderByIdRoute {
   public ResponseEntity<Optional<Order>> getOrder(@PathVariable Integer id){
     GetOrderOutput order = getOrderById.run(id);
 
-    return ResponseEntity.status(201).body(order.getOrder());
+    return ResponseEntity.status(200).body(order.getOrder());
   }
 }

@@ -1,10 +1,12 @@
 package com.cortinovis.GameMarketPlace.infra.http;
 
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder.CreateOrder;
-import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder.GetOrderById;
+import com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrderById.GetOrderById;
 import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
 import com.cortinovis.GameMarketPlace.domain.ports.IProductRepository;
 import com.cortinovis.GameMarketPlace.domain.ports.IUserRepository;
+import com.cortinovis.GameMarketPlace.infra.http.Order.CreateOrderRoute;
+import com.cortinovis.GameMarketPlace.infra.http.Order.GetOrderByIdRoute;
 import com.cortinovis.GameMarketPlace.infra.repositories.OrderRepository;
 import com.cortinovis.GameMarketPlace.infra.repositories.ProductRepository;
 import com.cortinovis.GameMarketPlace.infra.repositories.UserRepository;

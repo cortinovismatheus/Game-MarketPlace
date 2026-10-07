@@ -1,6 +1,7 @@
 package com.cortinovis.GameMarketPlace.aplications.usecase.orders.CreateOrder;
 
 import com.cortinovis.GameMarketPlace.aplications.usecase.orders.ProductItem;
+import com.cortinovis.GameMarketPlace.domain.Exceptions.NotFoundException;
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import com.cortinovis.GameMarketPlace.domain.entities.OrderItem;
 import com.cortinovis.GameMarketPlace.domain.entities.Product;
@@ -12,7 +13,6 @@ import com.cortinovis.GameMarketPlace.domain.valueObjects.QuantifyProduct;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,14 +30,14 @@ public class CreateOrder {
     this.orderRepo = orderRepo;
   }
 
-  public CreateOrderOutput run(@NonNull CreateOrderInput input) throws AccountNotFoundException {
+  public CreateOrderOutput run(@NonNull CreateOrderInput input) throws NotFoundException {
     Integer ownerId = 0;
     List<OrderItem> items = new ArrayList<>();
 
     Optional<User> buyer = this.userRepo.getById(input.buyerId);
 
     if (buyer.isEmpty()) {
-      throw new AccountNotFoundException(
+      throw new NotFoundException(
               "O comprador não existe"
       );
     }

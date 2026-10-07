@@ -1,5 +1,6 @@
-package com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrder;
+package com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrderById;
 
+import com.cortinovis.GameMarketPlace.domain.Exceptions.NotFoundException;
 import com.cortinovis.GameMarketPlace.domain.entities.Order;
 import com.cortinovis.GameMarketPlace.domain.ports.IOrderRepository;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,10 @@ public class GetOrderById {
 
   public GetOrderOutput run(Integer id) {
     Optional<Order> order = orderRepo.getById(id);
+
+    if(order.isEmpty()){
+      throw new NotFoundException("Order not found!");
+    }
 
     return new GetOrderOutput(order);
   }

@@ -8,12 +8,9 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 public class GetOrderOutput {
-
-  private final Optional<Order> order;
 
   private final Integer id;
   private final Integer sellerId;
@@ -24,19 +21,14 @@ public class GetOrderOutput {
   private final Date createdAt;
   private final Date updatedAt;
 
-  public GetOrderOutput(@NonNull Optional<Order> order) {
-
-    this.order = order;
-
-    Order orderEntity = order.orElseThrow();
-
-    this.id = orderEntity.getId();
-    this.sellerId = orderEntity.getSellerId();
-    this.buyerId = orderEntity.getBuyerId();
-    this.items = orderEntity.getItems();
-    this.totalPrice = orderEntity.getTotalPrice().getValue();
-    this.status = orderEntity.getStatus();
-    this.createdAt = orderEntity.getCreated_at();
-    this.updatedAt = orderEntity.getUpdated_at();
+  public GetOrderOutput(@NonNull Order order) {
+    this.id = order.getId();
+    this.sellerId = order.getSellerId();
+    this.buyerId = order.getBuyerId();
+    this.items = order.getItems();
+    this.totalPrice = order.getTotalPrice().getValue();
+    this.status = order.getStatus();
+    this.createdAt = order.getCreated_at();
+    this.updatedAt = order.getUpdated_at();
   }
 }

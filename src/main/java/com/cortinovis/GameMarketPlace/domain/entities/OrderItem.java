@@ -3,16 +3,16 @@ package com.cortinovis.GameMarketPlace.domain.entities;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.Price;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.ProductName;
 import com.cortinovis.GameMarketPlace.domain.valueObjects.QuantifyProduct;
+import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NonNull;
 
-public record OrderItem(Integer productId, ProductName productName, QuantifyProduct quantityProduct, Price unitPrice) {
+public record OrderItem(Integer productId, QuantifyProduct quantityProduct, Price unitPrice) {
 
   @Contract("_, _ -> new")
   public static @NonNull OrderItem create(@NonNull Product product, QuantifyProduct quantityProduct) {
     return new OrderItem(
             product.getId(),
-            product.getName(),
             quantityProduct,
             product.getPrice()
     );
@@ -22,7 +22,6 @@ public record OrderItem(Integer productId, ProductName productName, QuantifyProd
   public static @NonNull OrderItem restore(Integer productId, QuantifyProduct quantityProduct, Price unitPrice) {
     return new OrderItem(
             productId,
-            null,
             quantityProduct,
             unitPrice
     );

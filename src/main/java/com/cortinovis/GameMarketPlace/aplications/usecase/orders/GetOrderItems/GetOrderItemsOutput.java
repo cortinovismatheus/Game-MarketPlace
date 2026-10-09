@@ -1,17 +1,20 @@
 package com.cortinovis.GameMarketPlace.aplications.usecase.orders.GetOrderItems;
 
 import com.cortinovis.GameMarketPlace.domain.entities.OrderItem;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.Contract;
+import org.jspecify.annotations.NonNull;
 
-import java.util.List;
-
-@Getter
-@NoArgsConstructor
-public class GetOrderItemsOutput {
-  List<OrderItem> orderItems;
-
-  public GetOrderItemsOutput(List<OrderItem> orderItems){
-    this.orderItems = orderItems;
+public record GetOrderItemsOutput(
+        Integer productId,
+        Integer quantityProduct,
+        Integer unitPrice
+) {
+  @Contract("_ -> new")
+  public static @NonNull GetOrderItemsOutput from(@NonNull OrderItem item) {
+    return new GetOrderItemsOutput(
+            item.productId(),
+            item.quantityProduct().getValue(),
+            item.unitPrice().getValue()
+    );
   }
 }

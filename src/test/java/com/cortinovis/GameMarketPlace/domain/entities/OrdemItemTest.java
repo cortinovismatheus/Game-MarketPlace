@@ -26,7 +26,6 @@ class OrderItemTest {
     OrderItem orderItem = OrderItem.create(product, quantity);
 
     assertEquals(product.getId(), orderItem.productId());
-    assertEquals(product.getName(), orderItem.productName());
     assertEquals(quantity, orderItem.quantityProduct());
     assertEquals(product.getPrice(), orderItem.unitPrice());
   }

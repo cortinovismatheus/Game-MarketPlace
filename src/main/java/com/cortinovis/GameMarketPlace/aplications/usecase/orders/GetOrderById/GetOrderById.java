@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+
 @Component
 public class GetOrderById {
 
@@ -17,12 +18,11 @@ public class GetOrderById {
   }
 
   public GetOrderOutput run(Integer id) {
-    Optional<Order> order = orderRepo.getById(id);
+    Optional<Order> order = Optional.of(orderRepo.getById(id)
+            .orElseThrow(() ->
+                    new NotFoundException("Order not found!")
+            ));
 
-    if(order.isEmpty()){
-      throw new NotFoundException("Order not found!");
-    }
-
-    return new GetOrderOutput(order);
+    return new GetOrderOutput(order.get());
   }
 }
